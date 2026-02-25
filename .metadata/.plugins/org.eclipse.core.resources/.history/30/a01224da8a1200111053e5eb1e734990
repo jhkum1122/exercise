@@ -1,0 +1,47 @@
+public class TestNeighborCell {
+    public int solution(String[][] board, int h, int w) {
+        // 1. 정수를 저장할 변수 n을 만들고 board의 길이를 저장합니다.
+        int n = board.length;
+        
+        // 2. 같은 색으로 색칠된 칸의 개수를 저장할 변수 count를 만들고 0을 저장합니다.
+        int count = 0;
+        
+        // 3. h와 w의 변화량을 저장할 리스트 dh, dw를 만듭니다.
+        int[] dh = {0, 1, -1, 0};
+        int[] dw = {1, 0, 0, -1};
+        
+        // 4. 반복문을 이용해 i가 0부터 3까지 1씩 증가시키며 아래 작업을 반복합니다.
+        for (int i = 0; i <= 3; i++) {
+            // 4-1. 체크할 칸의 좌표 h_check, w_check를 만듭니다.
+            int h_check = h + dh[i];
+            int w_check = w + dw[i];
+            
+            // 4-2. h_check와 w_check가 보드 범위 내에 있는지 확인합니다.
+            if (h_check >= 0 && h_check < n && w_check >= 0 && w_check < n) {
+                // 4-2-a. 현재 칸과 이웃한 칸의 색이 동일한지 확인합니다.
+                if (board[h][w].equals(board[h_check][w_check])) {
+                    count++;
+                }
+            }
+        }
+        
+        // 5. count의 값을 return합니다.
+        return count;
+    }
+
+    // 이클립스에서 "test" 대신 실제 결과를 보기 위한 메인 함수
+    public static void main(String[] args) {
+        NeighborCell neighborCell = new NeighborCell();
+        
+        // 입출력 예시 #1
+        String[][] board = {
+            {"blue", "red", "orange", "red"},
+            {"red", "red", "blue", "orange"},
+            {"blue", "orange", "red", "red"},
+            {"orange", "orange", "red", "blue"}
+        };
+        
+        int result = neighborCell.solution(board, 1, 1);
+        System.out.println("결과: " + result); // 기대값: 2
+    }
+}
